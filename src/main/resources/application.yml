@@ -1,0 +1,25 @@
+#spring.application.name=mentorship-platform
+
+
+spring:
+#  security:
+#    user:
+#      name: ivan
+#      password: manhique
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mentorship
+    username: ivanm
+    password: tester
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  application:
+    name: mentorship-platform
+
+jwt:
+  secret: ${JWT_SECRET:ZyYWIuyh7ddPT0f8f/vK61uI96cf/GBpp19FiPXxmBg=}
