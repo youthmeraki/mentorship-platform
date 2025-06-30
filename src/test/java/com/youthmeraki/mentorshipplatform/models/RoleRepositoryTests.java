@@ -1,10 +1,5 @@
 package com.youthmeraki.mentorshipplatform.models;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-
 import com.youthmeraki.mentorshipplatform.repositories.RoleRepo;
 import com.youthmeraki.mentorshipplatform.repositories.UserRepo;
 import org.junit.jupiter.api.Test;
@@ -13,6 +8,11 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -23,7 +23,6 @@ public class RoleRepositoryTests {
 
     @Autowired
     private UserRepo userRepo;
-
 
     @Test
     public void testCreateRoles() {
