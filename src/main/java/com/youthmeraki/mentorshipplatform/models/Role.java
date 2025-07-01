@@ -1,33 +1,25 @@
 package com.youthmeraki.mentorshipplatform.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
+@Entity
 @Getter
 @Setter
-@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RoleType name;
 
-    @Column
-    private String description;
-
-    public Role() {
-    }
-
-    public Role(String name) {
+    public Role(RoleType name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
     }
 }

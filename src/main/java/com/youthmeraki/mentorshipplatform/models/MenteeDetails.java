@@ -1,15 +1,18 @@
 package com.youthmeraki.mentorshipplatform.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MenteeDetails {
 
     @Id
@@ -33,84 +36,38 @@ public class MenteeDetails {
     @Column(nullable = false)
     private Date expectedFinishDate;
 
-    @OneToMany(mappedBy = "mentee", cascade = CascadeType.ALL)
-    private List<Parent> parents;
+    @Column(nullable = false)
+    private String degreePursing;
 
-    @OneToMany(mappedBy = "mentee", cascade = CascadeType.ALL)
-    private List<AreaOfStudy_Mentee> areasOfStudy;
+    @OneToOne(mappedBy = "menteeDetails")
+    private Mentee mentee;
 
-    @OneToMany(mappedBy = "mentee", cascade = CascadeType.ALL)
-    private List<CountryOfStudy_Mentee> countriesOfStudy;
+    @OneToOne(mappedBy = "menteeDetails", cascade = CascadeType.ALL)
+    private Parent parent;
 
-    @OneToMany(mappedBy = "mentee",cascade = CascadeType.ALL)
-    private List<InternationalExam_Mentee> internationalExams;
+    @ManyToMany
+    @JoinTable(
+            name = "mentee_details_area_of_study",
+            joinColumns = @JoinColumn(name = "mentee_details_id"),
+            inverseJoinColumns = @JoinColumn(name = "area_of_study_id")
+    )
+    private Set<AreaOfStudy> areaOfStudies = new HashSet<>();
 
-    public MenteeDetails() {
 
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "mentee_details_country_of_study",
+            joinColumns = @JoinColumn(name = "mentee_details_id"),
+            inverseJoinColumns = @JoinColumn(name = "country_of_study_id")
+    )
+    private Set<CountryOfStudy> countriesOfStudy = new HashSet<>();
 
-    public MenteeDetails(String nationality, String city, String residingCountry, String residingCity, String highestDegreeLevel, String institutionName, String finalGradeObtained, Date expectedFinishDate) {
-        this.nationality = nationality;
-        this.city = city;
-        this.residingCountry = residingCountry;
-        this.residingCity = residingCity;
-        this.highestDegreeLevel = highestDegreeLevel;
-        this.institutionName = institutionName;
-        this.finalGradeObtained = finalGradeObtained;
-        this.expectedFinishDate = expectedFinishDate;
-    }
-
-    public void addParent(Parent parent) {
-        parents.add(parent);
-        if (parent.getMentee() != this) {
-            parent.setMentee(this);
-        }
-    }
-
-    public void removeParent(Parent parent) {
-        parents.remove(parent);
-        if (parent.getMentee() != this) {
-            parent.removeMentee(this);
-        }
-    }
-
-    public void addAreasOfStudy(AreaOfStudy_Mentee areaOfStudyMentee) {
-        areasOfStudy.add(areaOfStudyMentee);
-        if (areaOfStudyMentee.getMentee() != this){
-            areaOfStudyMentee.addMentee(null);
-        }
-    }
-    public void removeAreasOfStudy(AreaOfStudy_Mentee areaOfStudyMentee) {
-        areasOfStudy.remove(areaOfStudyMentee);
-        if (areaOfStudyMentee.getMentee() != this){
-            areaOfStudyMentee.removeMentee(this);
-        }
-    }
-
-    public void addCountriesOfStudy(CountryOfStudy_Mentee countryOfStudyMentee) {
-        countriesOfStudy.add(countryOfStudyMentee);
-        if (countryOfStudyMentee.getMentee() != this){
-            countryOfStudyMentee.addMentee(null);
-        }
-    }
-    public void removeCountryOfStudy(CountryOfStudy_Mentee countryOfStudyMentee) {
-        countriesOfStudy.remove(countryOfStudyMentee);
-        if (countryOfStudyMentee.getMentee() == this){
-            countryOfStudyMentee.removeMentee(this);
-        }
-    }
-
-    public void addInternationalExams(InternationalExam_Mentee internationalExam) {
-        internationalExams.add(internationalExam);
-        if (internationalExam.getMentee() != this){
-            internationalExam.addMentee(this);
-        }
-    }
-    public void removeInternationalExams(InternationalExam_Mentee internationalExam) {
-        internationalExams.remove(internationalExam);
-        if (internationalExam.getMentee() == this){
-            internationalExam.removeMentee(this);
-        }
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "mentee_details_international_exam",
+            joinColumns = @JoinColumn(name = "mentee_details_id"),
+            inverseJoinColumns = @JoinColumn(name = "international_exam_id")
+    )
+    private Set<InternationalExam> internationalExams = new HashSet<>();
 
 }

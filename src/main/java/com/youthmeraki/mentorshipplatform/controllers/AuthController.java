@@ -1,7 +1,5 @@
 package com.youthmeraki.mentorshipplatform.controllers;
 
-import com.youthmeraki.mentorshipplatform.dtos.CreateUserDTO;
-import com.youthmeraki.mentorshipplatform.dtos.UserDTO;
 import com.youthmeraki.mentorshipplatform.dtos.UserLoginDTO;
 import com.youthmeraki.mentorshipplatform.services.AuthService;
 import com.youthmeraki.mentorshipplatform.services.UserService;
@@ -23,11 +21,11 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("register-user")
-    public ResponseEntity<UserDTO> registerUser(@RequestBody CreateUserDTO createUserDTO) {
-        UserDTO userDTO = userService.createUserWithRoleMentee(createUserDTO);
-        return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
-    }
+//    @PostMapping("register-user")
+//    public ResponseEntity<UserDTO> registerUser(@RequestBody CreateUserDTO createUserDTO) {
+//        UserDTO userDTO = userService.createUserWithRoleMentee(createUserDTO);
+//        return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
+//    }
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody UserLoginDTO userLoginDTO) {

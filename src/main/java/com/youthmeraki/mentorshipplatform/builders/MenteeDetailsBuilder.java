@@ -1,6 +1,9 @@
 package com.youthmeraki.mentorshipplatform.builders;
 
-import com.youthmeraki.mentorshipplatform.models.*;
+import com.youthmeraki.mentorshipplatform.models.AreaOfStudy;
+import com.youthmeraki.mentorshipplatform.models.CountryOfStudy;
+import com.youthmeraki.mentorshipplatform.models.InternationalExam;
+import com.youthmeraki.mentorshipplatform.models.Parent;
 import lombok.Getter;
 
 import java.util.Date;
@@ -131,14 +134,7 @@ public class MenteeDetailsBuilder implements IMenteeDetailsBuilder{
         }
     }
 
-    public MenteeDetails getResult() {
-         MenteeDetails menteeDetails = new MenteeDetails(nationality, city, residingCountry, residingCity, highestDegreeLevel,institutionName,
-                finalGradeObtained, expectedFinishDate);
-
-
-         return menteeDetails;
-    }
 }
-//    public MenteeDetails(String nationality, String city,
+//    public MenteeDetailsRepo(String nationality, String city,
 //    String residingCountry, String residingCity, String highestDegreeLevel,
 //    String institutionName, String finalGradeObtained, Date expectedFinishDate) {

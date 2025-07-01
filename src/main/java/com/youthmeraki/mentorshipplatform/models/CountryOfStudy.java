@@ -1,37 +1,28 @@
 package com.youthmeraki.mentorshipplatform.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class CountryOfStudy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<CountryOfStudy_Mentee> countryOfStudyMentees;
-
-    public void addMentee(CountryOfStudy_Mentee countryOfStudyMentee) {
-        this.countryOfStudyMentees.add(countryOfStudyMentee);
-        if (countryOfStudyMentee != null && countryOfStudyMentee.getCountryOfStudy() != this) {
-            countryOfStudyMentee.addCountryOfStudy(this);
-        }
-    }
-
-    public void removeMentee(CountryOfStudy_Mentee countryOfStudyMentee) {
-        this.countryOfStudyMentees.remove(countryOfStudyMentee);
-        if ( countryOfStudyMentee != null && countryOfStudyMentee.getCountryOfStudy() == this) {
-            countryOfStudyMentee.removeCountryOfStudy(this);
-        }
-    }
-
+    @ManyToMany(mappedBy = "countriesOfStudy")
+    private Set<MenteeDetails> menteeDetails = new HashSet<>();
 }

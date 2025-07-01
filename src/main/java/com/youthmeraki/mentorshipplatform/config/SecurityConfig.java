@@ -1,8 +1,6 @@
 package com.youthmeraki.mentorshipplatform.config;
 
 import com.youthmeraki.mentorshipplatform.filters.JwtFilter;
-import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -47,7 +45,8 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/api/v1/user/register/**"
                         ).permitAll()
                         .requestMatchers("/api/v1/mentor/**").hasRole("MENTOR")
                         .requestMatchers("/api/v1/mentee/**").hasRole("MENTEE")

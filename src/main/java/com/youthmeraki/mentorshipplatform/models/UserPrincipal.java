@@ -1,15 +1,15 @@
 package com.youthmeraki.mentorshipplatform.models;
 
-import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
 
 public class UserPrincipal implements UserDetails {
 
-    private User user;
+    private final User user;
     private final boolean enabled;
     private final boolean accountNonExpired;
     private final boolean credentialsNonExpired;
@@ -31,17 +31,11 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Role> roles = user.getRoles();
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles) {
-            String roleName = role.getName().startsWith("ROLE_")
-                    ? role.getName()
-                    : "ROLE_" + role.getName();
-            authorities.add(new SimpleGrantedAuthority(roleName));
-        }
-
-        return authorities;
+        RoleType roleName = user.getRole().getName();
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleName.toString());
+        return Collections.singleton(authority);
     }
+
 
     @Override
     public String getPassword() {

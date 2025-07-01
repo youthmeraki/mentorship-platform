@@ -1,11 +1,9 @@
 package com.youthmeraki.mentorshipplatform.services;
 
-import com.youthmeraki.mentorshipplatform.models.Role;
 import com.youthmeraki.mentorshipplatform.models.User;
 import com.youthmeraki.mentorshipplatform.repositories.UserRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,9 +11,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -31,13 +31,10 @@ public class JwtService {
 
     public String generateToken(String username) {
         User user = userRepo.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found with username: " + username));;
+                .orElseThrow(() -> new RuntimeException("User not found with username: " + username));
         Map<String, Object> claims = new HashMap<String, Object>();
-        claims.put("roles",
-                user.getRoles().stream()
-                        .map(Role::getName)
-                        .collect( Collectors.toList()
-        ));
+        claims.put("roles", List.of(user.getRole().getName()));
+
 
         return Jwts.builder()
                 .claims()

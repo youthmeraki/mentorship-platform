@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,22 +17,7 @@ public class InternationalExam {
     private long id;
 
     private String title;
-    private double average;
 
-    @OneToMany(mappedBy = "internationalExam")
-    private List<InternationalExam_Mentee> internationalExamMentees;
-
-    public void addInternationalExamMentee(InternationalExam_Mentee ie) {
-        this.internationalExamMentees.add(ie);
-        if ( ie != null && ie.getInternationalExam() != this) {
-            ie.addInternationalExam(this);
-        }
-    }
-
-    public void removeInternationalExamMentee(InternationalExam_Mentee ie) {
-        this.internationalExamMentees.remove(ie);
-        if (ie.getInternationalExam() == this) {
-            ie.addInternationalExam(null);
-        }
-    }
+    @ManyToMany(mappedBy = "internationalExams")
+    private Set<MenteeDetails> menteeDetails = new HashSet<>();
 }

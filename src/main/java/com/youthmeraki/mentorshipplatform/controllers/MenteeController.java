@@ -1,11 +1,12 @@
 package com.youthmeraki.mentorshipplatform.controllers;
 
-import com.youthmeraki.mentorshipplatform.dtos.CreateMenteeDTO;
 import com.youthmeraki.mentorshipplatform.dtos.MenteeDTO;
 import com.youthmeraki.mentorshipplatform.services.MenteeService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 @RestController
@@ -26,11 +27,10 @@ public class MenteeController {
     public String hello() {
         return "Hello Mentee!";
     }
-
-    @PostMapping("/create-mentee")
-    public ResponseEntity<?> createMentee(@RequestBody CreateMenteeDTO mentee, @RequestHeader("Authorization") String authorizationHeader) {
-        String token = authorizationHeader.split(" ")[1];
-        MenteeDTO menteeDTO = menteeService.createMentee(mentee, token);
-        return ResponseEntity.ok(menteeDTO);
-    }
+//    @PostMapping("/create-mentee")
+//    public ResponseEntity<?> registerMentee(@RequestBody CreateMenteeDTO mentee, @RequestHeader("Authorization") String authorizationHeader) {
+//        String token = authorizationHeader.split(" ")[1];
+//        MenteeDTO menteeDTO = menteeService.registerMentee(mentee, token);
+//        return ResponseEntity.ok(menteeDTO);
+//    }
 }

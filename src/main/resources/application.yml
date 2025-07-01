@@ -12,14 +12,21 @@ spring:
     password: tester
     driver-class-name: org.postgresql.Driver
 
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
+    defer-datasource-initialization: true  # Add this line
     show-sql: true
 
   application:
     name: mentorship-platform
+
+  sql:
+    init:
+      mode: never
+      data-locations: classpath:data.sql
 
 jwt:
   secret: ${JWT_SECRET:ZyYWIuyh7ddPT0f8f/vK61uI96cf/GBpp19FiPXxmBg=}

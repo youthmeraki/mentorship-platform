@@ -1,7 +1,6 @@
 package com.youthmeraki.mentorshipplatform.services;
 
 import com.youthmeraki.mentorshipplatform.models.User;
-import com.youthmeraki.mentorshipplatform.models.UserPrincipal;
 import com.youthmeraki.mentorshipplatform.repositories.UserRepo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class MyUsersDetailsService implements UserDetailsService {
@@ -32,9 +30,10 @@ public class MyUsersDetailsService implements UserDetailsService {
 //            throw new DisabledException("User account is disabled");
 //        }
 
-        Set<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toSet());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getName().toString());
+        Set<GrantedAuthority> authorities = Set.of(authority);
+
+
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(), user.getPassword(), authorities);
     }
