@@ -22,6 +22,9 @@ public class Mentee {
     @Column(nullable = false)
     private Subscription subscription;
 
+    @Column(nullable = true)
+    private boolean approve;
+
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "details_id", nullable = false)
     private MenteeDetails menteeDetails;

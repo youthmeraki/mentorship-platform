@@ -1,13 +1,16 @@
 package com.youthmeraki.mentorshipplatform.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateMenteeDTO {
 
     // Personal Information
@@ -35,8 +38,39 @@ public class CreateMenteeDTO {
 
 
     private ParentDTO parentDto;
-    private List<StudyAreaDTO> studyAreas;
-    private List<CountryOfStudyDTO> countriesOfStudy;
-    private List<InternationalExamDTO> internationalExams;
+    @Builder.Default
+    private List<StudyAreaDTO> studyAreas = new ArrayList<>();;
+    @Builder.Default
+    private List<CountryOfStudyDTO> countriesOfStudy = new ArrayList<>();;
+    @Builder.Default
+    private List<InternationalExamDTO> internationalExams = new ArrayList<>();;
 
+    @Override
+    public String toString() {
+        return "CreateMenteeDTO{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", gender=" + gender +
+                ", subscription='" + subscription + '\'' +
+                ", birthdate=" + birthdate +
+                ", nationality='" + nationality + '\'' +
+                ", city='" + city + '\'' +
+                ", residingCountry='" + residingCountry + '\'' +
+                ", residingCity='" + residingCity + '\'' +
+                ", highestDegreeLevel='" + highestDegreeLevel + '\'' +
+                ", institutionName='" + institutionName + '\'' +
+                ", finalGradeObtained='" + finalGradeObtained + '\'' +
+                ", expectedFinishDate=" + expectedFinishDate +
+                ", degreePursing='" + degreePursing + '\'' +
+                ", parentDto=" + parentDto +
+                ", studyAreas=" + studyAreas +
+                ", countriesOfStudy=" + countriesOfStudy +
+                ", internationalExams=" + internationalExams +
+                '}';
+    }
 }

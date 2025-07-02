@@ -1,32 +1,30 @@
-#spring.application.name=mentorship-platform
-
-
 spring:
-#  security:
-#    user:
-#      name: ivan
-#      password: manhique
   datasource:
     url: jdbc:postgresql://localhost:5432/mentorship
     username: ivanm
     password: tester
     driver-class-name: org.postgresql.Driver
-
-
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     defer-datasource-initialization: true  # Add this line
     show-sql: true
-
   application:
     name: mentorship-platform
-
   sql:
     init:
       mode: never
       data-locations: classpath:data.sql
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  mail:
+    from-address: ${MAIL_FROM_ADDRESS:info.studyoverseas@youthmeraki.com}
+    verification-base-url: ${VERIFICATION_BASE_URL:http://localhost:8080}
+  sendgrid:
+    api-key: ${SENDGRID_API_KEY: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}
 
 jwt:
   secret: ${JWT_SECRET:ZyYWIuyh7ddPT0f8f/vK61uI96cf/GBpp19FiPXxmBg=}

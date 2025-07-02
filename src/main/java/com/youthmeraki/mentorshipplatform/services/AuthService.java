@@ -25,7 +25,6 @@ public class AuthService {
                         loginDTO.getPassword()
                 )
         );
-
         if (authentication.isAuthenticated()) {
             return jwtService.generateToken(loginDTO.getUsername());
         }

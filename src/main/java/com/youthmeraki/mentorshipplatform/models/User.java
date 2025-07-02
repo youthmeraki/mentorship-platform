@@ -16,7 +16,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @Column(unique = true)
     private String username;
     @Column(nullable = false)
@@ -31,19 +30,18 @@ public class User {
     private String phone;
     @Column(nullable = false)
     private String password;
-
     @Column(nullable = false)
     private Date birthdate;
-
     @Column(nullable = false)
     private boolean gender; //male = 1 & female = 0
+    @Column(nullable = true)
+    private boolean active;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Mentee mentee;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Mentor mentor;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)

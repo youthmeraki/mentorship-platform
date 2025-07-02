@@ -1,6 +1,7 @@
 package com.youthmeraki.mentorshipplatform.services;
 
 import com.youthmeraki.mentorshipplatform.models.Role;
+import com.youthmeraki.mentorshipplatform.models.RoleType;
 import com.youthmeraki.mentorshipplatform.repositories.RoleRepo;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,9 @@ public class RoleService {
         this.roleRepo = roleRepo;
     }
 
-    public Role getRole(String roleName) {
-        return roleRepo.findByName(roleName);
+    public Role getRole(RoleType roleName) {
+        return roleRepo.findByName(roleName).orElseThrow(
+                () -> new RuntimeException("Role not found with name: " + roleName));
     }
 
 }

@@ -46,10 +46,12 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
                                 "/webjars/**",
-                                "/api/v1/user/register/**"
+                                "/api/v1/user/register/**",
+                                "/api/v1/user/verify/**"
                         ).permitAll()
                         .requestMatchers("/api/v1/mentor/**").hasRole("MENTOR")
                         .requestMatchers("/api/v1/mentee/**").hasRole("MENTEE")
+                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

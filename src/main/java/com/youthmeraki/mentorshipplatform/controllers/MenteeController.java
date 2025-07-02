@@ -27,10 +27,4 @@ public class MenteeController {
     public String hello() {
         return "Hello Mentee!";
     }
-//    @PostMapping("/create-mentee")
-//    public ResponseEntity<?> registerMentee(@RequestBody CreateMenteeDTO mentee, @RequestHeader("Authorization") String authorizationHeader) {
-//        String token = authorizationHeader.split(" ")[1];
-//        MenteeDTO menteeDTO = menteeService.registerMentee(mentee, token);
-//        return ResponseEntity.ok(menteeDTO);
-//    }
 }

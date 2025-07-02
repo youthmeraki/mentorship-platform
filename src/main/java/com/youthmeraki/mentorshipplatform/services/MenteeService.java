@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -67,6 +68,7 @@ public class MenteeService {
                         .orElseThrow(() -> new RuntimeException("International exam not found: " + examDTO.getTitle())))
                 .collect(Collectors.toSet());
 
+
         MenteeDetails menteeDetails = MenteeDetails.builder()
                 .nationality(createMenteeDTO.getNationality())
                 .city(createMenteeDTO.getCity())
@@ -96,4 +98,5 @@ public class MenteeService {
     public MenteeDTO mapMenteeToDTO(Mentee mentee) {
         return new MenteeDTO();
     }
+
 }
