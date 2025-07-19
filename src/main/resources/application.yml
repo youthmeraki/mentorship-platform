@@ -1,4 +1,10 @@
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1GB       # Max size per file (1 GB)
+      max-request-size: 1GB    # Max size per HTTP request (1 GB)
+      file-size-threshold: 1MB # Store in memory before writing to disk
   datasource:
     url: jdbc:postgresql://localhost:5432/mentorship
     username: ivanm
@@ -28,3 +34,29 @@ spring:
 
 jwt:
   secret: ${JWT_SECRET:ZyYWIuyh7ddPT0f8f/vK61uI96cf/GBpp19FiPXxmBg=}
+
+stripe:
+  api:
+    key: ${STRIPE_SECRET_KEY:sk_test_51RgZzzPEd1NOdbLjTllJMG0x7teq90YZdAprrBcX05qtW1TaW7TkPnDBsNdbPGWO9QZTWaMSi8A0z3x5USyjC9wv0031YSEvSR}
+  webhook:
+    secret: ${STRIPE_WEBHOOK_SECRET_KEY:whsec_0jh2NyPvILhgFclIU8EEBXWmR4sZw2QB}
+
+mux:
+  webhook:
+    secret: ${MUX_WEBHOOK_SECRET:5o35co2bp0i8dj1moso5rsr2gi5m8f25}
+  token:
+    id: ${MUX_API_KEY:25493ed5-12e7-439b-8754-e08a22d77570}
+    secret: ${MUX_API_SECRET:vunuGezCTbfjripOsvTIaP8rCfWire1dXNYkg/DG0wWLH6svAX9y4DsmZeG7cRzUGG9XgGLtNVt}
+
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha
+    filter: true
+    display-request-duration: true
+    persistAuthorization: true
+  default-flat-param-object: true
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json
+  api-docs:
+    path: /v3/api-docs

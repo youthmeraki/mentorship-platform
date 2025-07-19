@@ -1,5 +1,6 @@
 package com.youthmeraki.mentorshipplatform.models;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,27 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+@Getter
 public class UserPrincipal implements UserDetails {
 
     private final User user;
-    private final boolean enabled;
-    private final boolean accountNonExpired;
-    private final boolean credentialsNonExpired;
-    private final boolean accountNonLocked;
-
 
     public UserPrincipal(User user) {
         this.user = user;
-        this.enabled = true;
-        this.accountNonExpired = true;
-        this.credentialsNonExpired = true;
-        this.accountNonLocked = true;
-//        this.enabled = user.isActive(); // assuming you have an 'active' field
-//        this.accountNonExpired = !user.isExpired();
-//        this.credentialsNonExpired = !user.isCredentialsExpired();
-//        this.accountNonLocked = !user.isLocked();
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -47,23 +35,17 @@ public class UserPrincipal implements UserDetails {
         return user.getUsername();
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public boolean isApproved() {
+        if (user.getRole().getName() == RoleType.ROLE_MENTOR || user.getRole().getName() == RoleType.ROLE_ADMIN) {
+            return true;
+        }
+        return user.getMentee().isApproved();
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public boolean isPaid() {
+        if (user.getRole().getName() == RoleType.ROLE_MENTOR || user.getRole().getName() == RoleType.ROLE_ADMIN) {
+            return true;
+        }
+        return user.getMentee().isPaid();
     }
 }

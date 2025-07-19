@@ -1,37 +1,37 @@
 package com.youthmeraki.mentorshipplatform.services;
 
 import com.youthmeraki.mentorshipplatform.dtos.CreateMenteeDTO;
-import jakarta.validation.ValidationException;
+import com.youthmeraki.mentorshipplatform.exceptions.ValidationException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class ValidationService {
 
     public void validateMenteeRegistration(CreateMenteeDTO dto) {
-        List<String> errors = new ArrayList<>();
+        Map<String, String> errors = new HashMap<>();
 
         if (!isValidUsername(dto.getUsername())) {
-            errors.add("Username must be between 3 and 20 characters");
+            errors.put("username", "Username must be between 3 and 20 characters");
         }
         if (!isValidEmail(dto.getEmail())) {
-            errors.add("Invalid email format");
+            errors.put("email", "Invalid email format");
         }
         if (!isValidPassword(dto.getPassword())) {
-            errors.add("Password must be at least 8 characters");
+            errors.put("password", "Password must be at least 8 characters");
         }
         if (!isValidPhone(dto.getPhone())) {
-            errors.add("Invalid phone number format");
+            errors.put("phone", "Invalid phone number format");
         }
         if (!isValidAge(dto.getBirthdate())) {
-            errors.add("User must be at least 13 years old");
+            errors.put("birthdate", "User must be at least 13 years old");
         }
 
         if (!errors.isEmpty()) {
-            throw new ValidationException(String.join(", ", errors));
+            throw new ValidationException(errors);
         }
     }
 

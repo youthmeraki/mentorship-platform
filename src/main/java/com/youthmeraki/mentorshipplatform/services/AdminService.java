@@ -36,20 +36,51 @@ public class AdminService {
     }
 
 
+
     @Transactional
     public void approveMentee(String username) {
         User user = getUserByUsername(username);
         if (user.getRole().getName().toString().equals("ROLE_MENTEE")) {
-            user.getMentee().setApprove(true);
+            user.getMentee().setApproved(true);
             userRepo.save(user);
         } else {
             throw new RuntimeException("User is not a mentee");
         }
     }
 
-    public void performAdminTask() {
-        // Placeholder for admin task logic
-        System.out.println("Performing admin task...");
+    @Transactional
+    public String rejectMentee(String username, String reason) {
+        User user = getUserByUsername(username);
+        if (user.getRole().getName().toString().equals("ROLE_MENTEE")) {
+            user.getMentee().setApproved(false);
+            userRepo.save(user);
+            return "Mentee rejected for reason: " + reason;
+        } else {
+            throw new RuntimeException("User is not a mentee");
+        }
+    }
+
+    @Transactional
+    public void setPaidTrue(String username) {
+        User user = getUserByUsername(username);
+        if (user.getRole().getName().toString().equals("ROLE_MENTEE")) {
+            user.getMentee().setPaid(true);
+            userRepo.save(user);
+        } else {
+            throw new RuntimeException("User is not a mentee");
+        }
+    }
+
+    @Transactional
+    public void setPaidTrueByEmail(String email) {
+        User user = userRepo.findByEmail((email))
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+        if (user.getRole().getName().toString().equals("ROLE_MENTEE")) {
+            user.getMentee().setPaid(true);
+            userRepo.save(user);
+        } else {
+            throw new RuntimeException("User is not a mentee");
+        }
     }
 
     @Transactional

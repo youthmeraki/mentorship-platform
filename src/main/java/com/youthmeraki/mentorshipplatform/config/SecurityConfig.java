@@ -47,7 +47,8 @@ public class SecurityConfig {
                                 "/swagger-resources/**",
                                 "/webjars/**",
                                 "/api/v1/user/register/**",
-                                "/api/v1/user/verify/**"
+                                "/api/v1/user/verify/**",
+                                "/webhook"
                         ).permitAll()
                         .requestMatchers("/api/v1/mentor/**").hasRole("MENTOR")
                         .requestMatchers("/api/v1/mentee/**").hasRole("MENTEE")

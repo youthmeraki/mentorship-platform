@@ -22,14 +22,17 @@ public class Mentee {
     @Column(nullable = false)
     private Subscription subscription;
 
-    @Column(nullable = true)
-    private boolean approve;
+    @Column(nullable = false)
+    private boolean isApproved = false;
+
+    @Column(nullable = false)
+    private boolean isPaid = false;
+
 
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "details_id", nullable = false)
     private MenteeDetails menteeDetails;
 
-    private boolean isPaid = false;
 
 
 }
